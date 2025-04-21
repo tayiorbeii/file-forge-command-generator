@@ -37,6 +37,21 @@ export class CommandGeneratorController {
     }
   }
 
+  private async _getAllImportsRecursive(
+    filePath: string,
+    seen = new Set<string>(),
+  ): Promise<string[]> {
+    if (seen.has(filePath)) return [];
+    seen.add(filePath);
+    const info = await this._getImportsFromFile(filePath);
+    let allImports = [...info.imports];
+    for (const imp of info.imports) {
+      const subImports = await this._getAllImportsRecursive(imp, seen);
+      allImports.push(...subImports);
+    }
+    return [...new Set(allImports)];
+  }
+
   async generateFileForgeCommand(): Promise<void> {
     await this._initTsconfig();
     try {
@@ -45,20 +60,109 @@ export class CommandGeneratorController {
         await showMessage('No files are currently open.');
         return;
       }
-      const fileImportsPromises = openFiles.map((filePath) =>
-        this._getImportsFromFile(filePath),
+
+      // Recursively collect all imports for each open file
+      const allFilesSet = new Set<string>(openFiles);
+      for (const file of openFiles) {
+        const imports = await this._getAllImportsRecursive(file);
+        imports.forEach((imp) => allFilesSet.add(imp));
+      }
+      const allFiles = Array.from(allFilesSet);
+      if (allFiles.length === 0) {
+        await showMessage('No files found to include.');
+        return;
+      }
+
+      // Build a map of import origins: for each file, which open file(s) import it (directly or transitively)
+      const importOrigins: Record<string, Set<string>> = {};
+      for (const openFile of openFiles) {
+        const imports = await this._getAllImportsRecursive(openFile);
+        for (const imp of imports) {
+          if (!importOrigins[imp]) importOrigins[imp] = new Set();
+          importOrigins[imp].add(openFile);
+        }
+      }
+      // Also mark open files as their own origin
+      for (const openFile of openFiles) {
+        if (!importOrigins[openFile]) importOrigins[openFile] = new Set();
+        importOrigins[openFile].add(openFile);
+      }
+
+      // Sort files by path, then by file name
+      allFiles.sort((a, b) => {
+        const pathA = a.toLowerCase();
+        const pathB = b.toLowerCase();
+        if (pathA === pathB) return 0;
+        if (pathA < pathB) return -1;
+        return 1;
+      });
+
+      // Multi-select quick pick for all files (open + imports)
+      // Annotate with which open file(s) import it
+      const quickPickItems: vscode.QuickPickItem[] = allFiles.map(
+        (filePath) => {
+          const origins = importOrigins[filePath]
+            ? Array.from(importOrigins[filePath])
+            : [];
+          const importedFrom =
+            origins.length > 0
+              ? `Imported from: ${origins
+                  .map((o) => path.basename(o))
+                  .join(', ')}`
+              : undefined;
+          return {
+            label: path.basename(filePath),
+            description: filePath,
+            detail: importedFrom,
+            alwaysShow: true,
+          };
+        },
       );
+
+      let selected: readonly vscode.QuickPickItem[] | undefined =
+        quickPickItems;
+      try {
+        selected = (await vscode.window.showQuickPick(quickPickItems, {
+          canPickMany: true,
+          title: 'Select files to include in the File Forge command',
+          placeHolder:
+            'Find file names, paths, or import origins (e.g. "components" or "App.tsx")',
+          ignoreFocusOut: true,
+          matchOnDescription: true,
+          matchOnDetail: true,
+          // @ts-expect-error: selectedItems is not yet in stable API, but supported in Insiders and will be stable soon
+          selectedItems: quickPickItems,
+        })) as readonly vscode.QuickPickItem[] | undefined;
+      } catch {
+        selected = quickPickItems;
+      }
+      if (!selected || selected.length === 0) {
+        await showMessage('No files selected. Command generation cancelled.');
+        return;
+      }
+      const selectedFiles = selected.map((item) => item.description!);
+
+      // Only gather imports for the selected files (for error reporting, not for inclusion)
+      const fileImportsPromises = selectedFiles.map(async (filePath) => {
+        const allImports = await this._getAllImportsRecursive(filePath);
+        return { filePath, imports: allImports };
+      });
       const fileImports = await Promise.all(fileImportsPromises);
       fileImports.forEach((info) => {
-        if (info.error) {
+        if ((info as any).error) {
           console.warn(
-            `[${EXTENSION_ID}] Error parsing imports for ${info.filePath}: ${info.error}`,
+            `[${EXTENSION_ID}] Error parsing imports for ${info.filePath}: ${
+              (info as any).error
+            }`,
           );
         }
       });
-      const command = this._buildFfgCommand(fileImports);
+      // Build the command using only the selected files
+      const command = this._buildFfgCommand(
+        selectedFiles.map((filePath) => ({ filePath, imports: [] })),
+      );
       const result = await vscode.window.showInputBox({
-        prompt: 'Copy this File Forge command to analyze open files',
+        prompt: 'Copy this File Forge command to analyze selected files',
         value: command,
         ignoreFocusOut: true,
       });

@@ -9,15 +9,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.13.0] - 2025-03-11
 
-### Added
-
-- Add `vscode-marketplace-client` dependency to check for extension updates and display a notification
-
-### Changed
-
-- Update the `extension.ts` file to use the new `vscode-marketplace-client` dependency
-- Update Localization strings for the extension
-
 ## [1.12.0] - 2025-02-03
 
 ### Changed

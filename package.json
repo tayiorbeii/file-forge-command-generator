@@ -113,7 +113,7 @@
 		"@compodoc/compodoc": "^1.1.26",
 		"@types/mocha": "^10.0.10",
 		"@types/node": "^22.9.0",
-		"@types/vscode": "^1.88.0",
+		"@types/vscode": "^1.99.1",
 		"@vscode/l10n-dev": "^0.0.35",
 		"@vscode/test-cli": "^0.0.10",
 		"@vscode/test-electron": "^2.4.1",
