@@ -4,3 +4,4 @@ compodoc/
 dist
 node_modules
 out
+.history

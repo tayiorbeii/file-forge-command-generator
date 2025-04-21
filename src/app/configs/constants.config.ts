@@ -8,7 +8,7 @@
  *
  * @returns {string} - The unique identifier of the extension
  */
-export const EXTENSION_ID: string = 'extensionIdentifier';
+export const EXTENSION_ID: string = 'file-forge-command-generator';
 
 /**
  * EXTENSION_NAME: The repository ID of the extension.
@@ -20,7 +20,7 @@ export const EXTENSION_ID: string = 'extensionIdentifier';
  *
  * @returns {string} - The repository ID of the extension
  */
-export const EXTENSION_NAME: string = 'vscode-extension-starter-advanced';
+export const EXTENSION_NAME: string = 'vscode-file-forge-command-generator';
 
 /**
  * EXTENSION_DISPLAY_NAME: The name of the extension.
@@ -32,7 +32,7 @@ export const EXTENSION_NAME: string = 'vscode-extension-starter-advanced';
  *
  * @returns {string} - The name of the extension
  */
-export const EXTENSION_DISPLAY_NAME: string = 'My Extension';
+export const EXTENSION_DISPLAY_NAME: string = 'file-forge Command Generator';
 
 /**
  * GITHUB_USER_NAME: The githubUsername of the extension.
@@ -44,7 +44,7 @@ export const EXTENSION_DISPLAY_NAME: string = 'My Extension';
  *
  * @returns {string} - The githubUsername of the extension
  */
-export const GITHUB_USER_NAME: string = 'githubUsername';
+export const GITHUB_USER_NAME: string = 'tayiorbeii';
 
 /**
  * EXTENSION_USER_PUBLISHER: The publisher of the extension.
@@ -56,7 +56,7 @@ export const GITHUB_USER_NAME: string = 'githubUsername';
  *
  * @returns {string} - The publisher of the extension
  */
-export const EXTENSION_USER_PUBLISHER: string = 'extensionPublisher';
+export const EXTENSION_USER_PUBLISHER: string = 'taylorbell';
 
 /**
  * EXTENSION_REPOSITORY_URL: The repository URL of the extension.

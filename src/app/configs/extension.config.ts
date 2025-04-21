@@ -58,19 +58,6 @@ export class ExtensionConfig {
    * console.log(config.showPath);
    */
   includeFilePath: boolean;
-  /**
-   * The OpenAI API key.
-   * @type {string}
-   * @public
-   * @memberof Config
-   * @example
-   * const config = new Config(workspace.getConfiguration());
-   * console.log(config.openai.apiKey);
-   */
-  openai: {
-    apiKey: string;
-    model: string;
-  };
 
   // -----------------------------------------------------------------
   // Constructor
@@ -100,11 +87,6 @@ export class ExtensionConfig {
       'files.includeFilePath',
       IS_INCLUDE_FILE_PATH_DEFAULT,
     );
-    // OpenAI API key and model to use
-    this.openai = {
-      apiKey: config.get<string>('openai.apiKey', ''),
-      model: config.get<string>('openai.model', ''),
-    };
   }
 
   // -----------------------------------------------------------------
@@ -139,10 +121,5 @@ export class ExtensionConfig {
       'files.includeFilePath',
       this.includeFilePath,
     );
-    // OpenAI API key and model to use
-    this.openai = {
-      apiKey: config.get<string>('openai.apiKey', this.openai.apiKey),
-      model: config.get<string>('openai.model', this.openai.model),
-    };
   }
 }

@@ -5,12 +5,26 @@
 {
 	"version": "0.2.0",
 	"configurations": [
+
 		{
 			"name": "Run Extension",
 			"type": "extensionHost",
 			"request": "launch",
 			"args": [
 				"--extensionDevelopmentPath=${workspaceFolder}"
+			],
+			"outFiles": [
+				"${workspaceFolder}/out/**/*.js"
+			],
+			"preLaunchTask": "${defaultBuildTask}"
+		},
+		{
+			"name": "Run Extension (Deprecation Trace)",
+			"type": "extensionHost",
+			"request": "launch",
+			"args": [
+				"--extensionDevelopmentPath=${workspaceFolder}",
+				"--trace-deprecation"
 			],
 			"outFiles": [
 				"${workspaceFolder}/out/**/*.js"
