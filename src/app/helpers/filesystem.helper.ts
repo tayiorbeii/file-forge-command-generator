@@ -296,3 +296,22 @@ export const exists = async (path: string): Promise<boolean> => {
 export const isDirectory = async (path: string): Promise<boolean> => {
   return (await workspace.fs.stat(Uri.file(path))).type === 2;
 };
+
+/**
+ * Reads and parses a JSON file from disk.
+ *
+ * @param {string} filePath - Path to the JSON file
+ * @returns {Promise<any | undefined>} - Parsed JSON object or undefined if not found/invalid
+ */
+export const readJsonFile = async (
+  filePath: string,
+): Promise<any | undefined> => {
+  try {
+    if (!existsSync(filePath)) return undefined;
+    const data = await workspace.fs.readFile(Uri.file(filePath));
+    const text = Buffer.from(data).toString('utf8');
+    return JSON.parse(text);
+  } catch (err) {
+    return undefined;
+  }
+};
