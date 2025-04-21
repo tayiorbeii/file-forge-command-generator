@@ -1,0 +1,347 @@
+{
+	"name": "vscode-extension-starter-advanced",
+	"displayName": "My Extension",
+	"description": "My First Extension for Visual Studio Code",
+	"version": "1.0.0",
+	"preview": true,
+	"icon": "icon.png",
+	"galleryBanner": {
+		"color": "#eff1f3",
+		"theme": "dark"
+	},
+	"pricing": "Free",
+	"license": "MIT",
+	"publisher": "extensionPublisher",
+	"author": "githubUsername",
+	"sponsor": {
+		"url": "https://github.com/sponsors/githubUsername"
+	},
+	"engines": {
+		"vscode": "^1.88.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"keywords": [
+		"boilerplate",
+		"extension",
+		"kit",
+		"plugin",
+		"project",
+		"starter-kit",
+		"starter",
+		"template",
+		"typescript",
+		"vscode",
+		"vsxpert"
+	],
+	"homepage": "https://github.com/githubUsername/vscode-extension-starter-advanced",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/githubUsername/vscode-extension-starter-advanced"
+	},
+	"bugs": {
+		"url": "https://github.com/githubUsername/vscode-extension-starter-advanced/issues"
+	},
+	"activationEvents": [],
+	"main": "./out/extension.js",
+	"l10n": "./l10n",
+	"contributes": {
+		"configuration": {
+			"title": "My Extension",
+			"properties": {
+				"extensionIdentifier.files.includedFilePatterns": {
+					"type": "array",
+					"default": [
+						"ts",
+						"js",
+						"json",
+						"html",
+						"css",
+						"scss",
+						"less"
+					],
+					"scope": "resource",
+					"description": "%extensionIdentifier.files.includedFilePatterns%"
+				},
+				"extensionIdentifier.files.excludedFilePatterns": {
+					"type": "array",
+					"default": [
+						"**/node_modules/**",
+						"**/dist/**",
+						"**/out/**",
+						"**/build/**",
+						"**/.*/**"
+					],
+					"scope": "resource",
+					"description": "%extensionIdentifier.files.excludedFilePatterns%"
+				},
+				"extensionIdentifier.files.includeFilePath": {
+					"type": "boolean",
+					"default": true,
+					"scope": "resource",
+					"description": "%extensionIdentifier.files.includeFilePath%"
+				},
+				"extensionIdentifier.openai.apiKey": {
+					"type": "string",
+					"default": "",
+					"scope": "resource",
+					"description": "%extensionIdentifier.openai.apiKey%"
+				},
+				"extensionIdentifier.openai.model": {
+					"type": "string",
+					"default": "gpt-3.5-turbo",
+					"enum": [
+						"babbage-002",
+						"dall-e-2",
+						"dall-e-3",
+						"davinci-002",
+						"gpt-3.5-turbo",
+						"gpt-3.5-turbo-0301",
+						"gpt-3.5-turbo-1106",
+						"gpt-3.5-turbo-16k",
+						"gpt-3.5-turbo-instruct",
+						"gpt-4",
+						"gpt-4-32k",
+						"gpt-4-turbo-preview",
+						"gpt-4-vision-preview",
+						"text-embedding-3-large",
+						"text-embedding-3-small",
+						"text-embedding-ada-002",
+						"text-moderation-latest",
+						"text-moderation-stable",
+						"tts-1",
+						"tts-1-hd",
+						"whisper-1"
+					],
+					"scope": "resource",
+					"description": "%extensionIdentifier.openai.model%"
+				}
+			}
+		},
+		"commands": [
+			{
+				"command": "extensionIdentifier.helloWorld",
+				"title": "%extensionIdentifier.helloWorld%",
+				"category": "My Extension"
+			},
+			{
+				"command": "extensionIdentifier.getFilesInFolder",
+				"title": "%extensionIdentifier.getFilesInFolder%",
+				"category": "My Extension"
+			},
+			{
+				"command": "extensionIdentifier.convertToTS",
+				"title": "%extensionIdentifier.convertToTS%",
+				"category": "My Extension"
+			},
+			{
+				"command": "extensionIdentifier.feedback.aboutUs",
+				"title": "%extensionIdentifier.feedback.aboutUs%",
+				"category": "My Extension"
+			},
+			{
+				"command": "extensionIdentifier.feedback.documentation",
+				"title": "%extensionIdentifier.feedback.documentation%",
+				"category": "My Extension"
+			},
+			{
+				"command": "extensionIdentifier.feedback.reportIssues",
+				"title": "%extensionIdentifier.feedback.reportIssues%",
+				"category": "My Extension"
+			},
+			{
+				"command": "extensionIdentifier.feedback.rateUs",
+				"title": "%extensionIdentifier.feedback.rateUs%",
+				"category": "My Extension"
+			},
+			{
+				"command": "extensionIdentifier.feedback.followUs",
+				"title": "%extensionIdentifier.feedback.followUs%",
+				"category": "My Extension"
+			},
+			{
+				"command": "extensionIdentifier.feedback.supportUs",
+				"title": "%extensionIdentifier.feedback.supportUs%",
+				"category": "My Extension"
+			},
+			{
+				"command": "extensionIdentifier.listFiles.refreshList",
+				"title": "%extensionIdentifier.listFiles.refreshList%",
+				"category": "My Extension",
+				"icon": "$(refresh)"
+			},
+			{
+				"command": "extensionIdentifier.listFiles.openFile",
+				"title": "%extensionIdentifier.listFiles.openFile%",
+				"category": "My Extension"
+			},
+			{
+				"command": "extensionIdentifier.colors.addColor",
+				"title": "%extensionIdentifier.colors.addColor%",
+				"category": "My Extension"
+			},
+			{
+				"command": "extensionIdentifier.colors.clearColors",
+				"title": "%extensionIdentifier.colors.clearColors%",
+				"icon": "$(clear-all)",
+				"category": "My Extension"
+			}
+		],
+		"keybindings": [
+			{
+				"command": "extensionIdentifier.convertToTS",
+				"key": "ctrl+alt+t",
+				"mac": "cmd+alt+t",
+				"when": "editorTextFocus && editorHasSelection"
+			}
+		],
+		"submenus": [
+			{
+				"id": "extensionIdentifier.explorer.submenu",
+				"label": "My Extension"
+			},
+			{
+				"id": "extensionIdentifier.editor.submenu",
+				"label": "My Extension"
+			}
+		],
+		"menus": {
+			"view/title": [
+				{
+					"command": "extensionIdentifier.listFiles.refreshList",
+					"when": "view == extensionIdentifier.listFilesView",
+					"group": "navigation"
+				},
+				{
+					"command": "extensionIdentifier.colors.clearColors",
+					"when": "view == extensionIdentifier.colorView",
+					"group": "navigation"
+				}
+			],
+			"view/item/context": [
+				{
+					"command": "extensionIdentifier.listFiles.openFile",
+					"when": "view == extensionIdentifier.listFilesView && viewItem == file"
+				}
+			],
+			"explorer/context": [
+				{
+					"submenu": "extensionIdentifier.explorer.submenu",
+					"group": "2_workspace",
+					"when": "explorerViewletFocus && explorerResourceIsFolder && !explorerResourceIsRoot"
+				}
+			],
+			"editor/context": [
+				{
+					"submenu": "extensionIdentifier.editor.submenu",
+					"group": "1_modification",
+					"when": "editorHasSelection"
+				}
+			],
+			"extensionIdentifier.explorer.submenu": [
+				{
+					"command": "extensionIdentifier.getFilesInFolder",
+					"alt": "%extensionIdentifier.getFilesInFolder%",
+					"group": "vscode-extension-starter-advanced@1"
+				}
+			],
+			"extensionIdentifier.editor.submenu": [
+				{
+					"command": "extensionIdentifier.convertToTS",
+					"alt": "%extensionIdentifier.convertToTS%",
+					"group": "vscode-extension-starter-advanced@2"
+				}
+			]
+		},
+		"viewsWelcome": [
+			{
+				"view": "extensionIdentifier.listFilesView",
+				"contents": "%extensionIdentifier.listFilesView.welcome%"
+			}
+		],
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "chat-view",
+					"title": "%chat-view%",
+					"icon": "./assets/logo.svg"
+				},
+				{
+					"id": "secondary-view",
+					"title": "%secondary-view%",
+					"icon": "./assets/logo.svg"
+				}
+			]
+		},
+		"views": {
+			"explorer": [
+				{
+					"id": "extensionIdentifier.listFilesView",
+					"name": "%extensionIdentifier.listFilesView%",
+					"visibility": "collapsed"
+				}
+			],
+			"chat-view": [
+				{
+					"id": "extensionIdentifier.chatView",
+					"name": "%extensionIdentifier.chatView%",
+					"type": "webview"
+				}
+			],
+			"secondary-view": [
+				{
+					"id": "extensionIdentifier.colorView",
+					"name": "%extensionIdentifier.colorView%",
+					"type": "webview"
+				},
+				{
+					"id": "extensionIdentifier.feedbackView",
+					"name": "%extensionIdentifier.feedbackView%",
+					"visibility": "visible"
+				}
+			]
+		},
+		"jsonValidation": [
+			{
+				"fileMatch": ".vscode/settings.json",
+				"url": "./schemas/config.schema.json"
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "rimraf out && tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"pretest": "npm run compile && npm run lint",
+		"format": "biome format --write",
+		"lint": "biome lint --write",
+		"lint:check": "biome check --write",
+		"test": "vscode-test",
+		"compodoc": "npx compodoc -p tsconfig.doc.json -d compodoc --theme readthedocs -s",
+		"prepare": "husky"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.9.4",
+		"@commitlint/cli": "^19.6.1",
+		"@commitlint/config-conventional": "^19.6.0",
+		"@compodoc/compodoc": "^1.1.26",
+		"@types/mocha": "^10.0.10",
+		"@types/node": "^22.9.0",
+		"@types/vscode": "^1.88.0",
+		"@vscode/l10n-dev": "^0.0.35",
+		"@vscode/test-cli": "^0.0.10",
+		"@vscode/test-electron": "^2.4.1",
+		"glob": "^11.0.0",
+		"husky": "^9.1.7",
+		"lint-staged": "^15.2.11",
+		"rimraf": "^6.0.1",
+		"typescript": "^5.7.2"
+	},
+	"dependencies": {
+		"@vscode/codicons": "^0.0.36",
+		"json-to-ts": "^2.1.0",
+		"openai": "^4.77.0",
+		"vscode-marketplace-client": "^1.0.0"
+	}
+}
